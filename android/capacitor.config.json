@@ -1,6 +1,0 @@
-{
-  "appId": "com.sehenswuerdigkeiten.app",
-  "appName": "Sehenswuerdigkeiten",
-  "bundledWebRuntime": false,
-  "webDir": "dist"
-}

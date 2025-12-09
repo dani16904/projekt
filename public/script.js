@@ -337,6 +337,40 @@ findMeBtn.addEventListener('click', () => {
     );
 });
 
+findMeBtn.addEventListener('click', () => {
+    console.log('Find Me button clicked'); // Debugging log
+
+    // Clear previous content
+    sightsDiv.innerHTML = '';
+
+    // Loop through sights and display locations
+    sights.forEach(sight => {
+        console.log(`Displaying sight: ${sight.name}`); // Debugging log
+
+        const sightContainer = document.createElement('div');
+        sightContainer.classList.add('sight-container');
+
+        const sightTitle = document.createElement('h3');
+        sightTitle.textContent = sight.name;
+        sightContainer.appendChild(sightTitle);
+
+        const sightImage = document.createElement('img');
+        sightImage.src = sight.image;
+        sightImage.alt = sight.name;
+        sightImage.style.width = '100%';
+        sightContainer.appendChild(sightImage);
+
+        const sightDescription = document.createElement('p');
+        sightDescription.textContent = sight.description;
+        sightContainer.appendChild(sightDescription);
+
+        const sightHistory = document.createElement('p');
+        sightHistory.textContent = sight.history;
+        sightContainer.appendChild(sightHistory);
+
+        sightsDiv.appendChild(sightContainer);
+    });
+});
+
 // Karte standardmäßig ausblenden
 mapDiv.style.display = 'none';
-no

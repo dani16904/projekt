@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meine App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    h1 {
+      color: #333;
+    }
+    p {
+      color: #666;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+    .sehenswuerdigkeiten {
+      margin-top: 20px;
+      text-align: left;
+    }
+  </style>
+  <script>
+    function showLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          position => {
+            const { latitude, longitude } = position.coords;
+            alert(`Ihre Position: Breitengrad ${latitude}, Längengrad ${longitude}`);
+            displaySehenswuerdigkeiten();
+          },
+          error => {
+            switch (error.code) {
+              case error.PERMISSION_DENIED:
+                alert('Standortzugriff wurde verweigert. Bitte aktivieren Sie die Standortberechtigung in den Einstellungen.');
+                break;
+              case error.POSITION_UNAVAILABLE:
+                alert('Standortinformationen sind nicht verfügbar.');
+                break;
+              case error.TIMEOUT:
+                alert('Die Standortanfrage ist abgelaufen.');
+                break;
+              default:
+                alert('Standort konnte nicht abgerufen werden.');
+            }
+          }
+        );
+      } else {
+        alert('Geolocation wird von Ihrem Browser nicht unterstützt.');
+      }
+    }
+
+    function displaySehenswuerdigkeiten() {
+      const sehenswuerdigkeiten = [
+        'Sehenswürdigkeit 1: Beispielplatz',
+        'Sehenswürdigkeit 2: Beispielmuseum',
+        'Sehenswürdigkeit 3: Beispielpark'
+      ];
+
+      const container = document.createElement('div');
+      container.className = 'sehenswuerdigkeiten';
+
+      const title = document.createElement('h2');
+      title.textContent = 'Sehenswürdigkeiten in Ihrer Nähe:';
+      container.appendChild(title);
+
+      const list = document.createElement('ul');
+      sehenswuerdigkeiten.forEach(item => {
+        const listItem = document.createElement('li');
+        listItem.textContent = item;
+        list.appendChild(listItem);
+      });
+
+      container.appendChild(list);
+      document.body.appendChild(container);
+    }
+  </script>
+</head>
+<body>
+  <h1>Willkommen zu meiner App</h1>
+  <p>Drücken Sie den Knopf, um Ihren Standort zu sehen und Sehenswürdigkeiten in Ihrer Nähe anzuzeigen.</p>
+  <button onclick="showLocation()">Zeige meinen Standort</button>
+</body>
+</html>

@@ -5,9 +5,23 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>myapp</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <link rel="manifest" href="manifest.json">
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then(() => console.log('Service Worker registered successfully.'))
+                .catch((error) => console.error('Service Worker registration failed:', error));
+        }
+    </script>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <button id="findMe">Find Locations</button>
+      <div id="sights"></div>
+    </div>
     <script type="module" src="/src/main.js"></script>
+    <script src="script.js"></script>
   </body>
 </html>

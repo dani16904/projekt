@@ -1,37 +1,21 @@
 apply plugin: 'com.android.application'
 
-// Versions für Dependencies definieren
-ext {
-    compileSdkVersion = 34
-    minSdkVersion = 24
-    targetSdkVersion = 34
-
-    androidxAppCompatVersion = '1.6.1'
-    androidxCoordinatorLayoutVersion = '1.2.0'
-    coreSplashScreenVersion = '1.0.1'
-    junitVersion = '4.13.2'
-    androidxJunitVersion = '1.1.5'
-    androidxEspressoCoreVersion = '3.5.1'
-}
-
 android {
-    namespace "com.example.app"
-    compileSdk compileSdkVersion
-
+    namespace "com.getcapacitor.myapp"
+    compileSdk rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "com.example.app"
-        minSdkVersion minSdkVersion
-        targetSdkVersion targetSdkVersion
+        applicationId "com.getcapacitor.app"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
         aaptOptions {
-            // Files and dirs to omit from the packaged assets dir
+             // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
+             // Default: https://android.googlesource.com/platform/frameworks/base/+/282e181b58cf72b6ca770dc7ca5f91f135444502/tools/aapt/AaptAssets.cpp#61
             ignoreAssetsPattern '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
         }
     }
-
     buildTypes {
         release {
             minifyEnabled false
@@ -41,7 +25,7 @@ android {
 }
 
 repositories {
-    flatDir {
+    flatDir{
         dirs '../capacitor-cordova-android-plugins/src/main/libs', 'libs'
     }
 }
@@ -52,23 +36,19 @@ dependencies {
     implementation "androidx.coordinatorlayout:coordinatorlayout:$androidxCoordinatorLayoutVersion"
     implementation "androidx.core:core-splashscreen:$coreSplashScreenVersion"
     implementation project(':capacitor-android')
-    implementation project(':capacitor-cordova-android-plugins')
-
     testImplementation "junit:junit:$junitVersion"
     androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
+    implementation project(':capacitor-cordova-android-plugins')
 }
 
-// Capacitor-Build einbinden (aktuell auskommentiert, da Datei fehlt)
-// apply from: 'capacitor.build.gradle'
+apply from: 'capacitor.build.gradle'
 
-// Google Services Plugin nur anwenden, wenn Datei existiert
-def servicesJSON = file('google-services.json')
-if (servicesJSON.exists() && servicesJSON.text) {
-    apply plugin: 'com.google.gms.google-services'
-} else {
+try {
+    def servicesJSON = file('google-services.json')
+    if (servicesJSON.text) {
+        apply plugin: 'com.google.gms.google-services'
+    }
+} catch(Exception e) {
     logger.info("google-services.json not found, google-services plugin not applied. Push Notifications won't work")
 }
-
-// apply from: 'capacitor.build.gradle'
-

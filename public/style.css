@@ -125,6 +125,34 @@ header p {
     border-radius: 8px;
 }
 
+/* Styling for sight containers */
+.sight-container {
+    border: 1px solid #ddd !important;
+    border-radius: 10px !important;
+    background-color: #fff !important;
+    margin: 20px 0 !important;
+    padding: 15px !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+}
+
+.sight-container h3 {
+    font-size: 1.5rem !important;
+    color: #4a90e2 !important;
+    margin-bottom: 10px !important;
+}
+
+.sight-container img {
+    border-radius: 10px !important;
+    margin-bottom: 15px !important;
+}
+
+.sight-container p {
+    font-size: 1rem !important;
+    color: #333 !important;
+    line-height: 1.5 !important;
+    margin-bottom: 10px !important;
+}
+
 /* Responsive */
 @media (max-width: 900px) {
     .map-and-list {
